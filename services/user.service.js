@@ -118,6 +118,7 @@ function update(_id, userParam) {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
             username: userParam.username,
+            team: userParam.team
         };
  
         // update password if it was entered
@@ -141,7 +142,6 @@ function update(_id, userParam) {
 // prefixed function name with underscore because 'delete' is a reserved word in javascript
 function _delete(_id) {
     var deferred = Q.defer();
- 
     db.users.remove(
         { _id: mongo.helper.toObjectID(_id) },
         function (err) {

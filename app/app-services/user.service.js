@@ -34,10 +34,10 @@
 			return $http.post('/api/users', user).then(handleSuccess, handleError);
 		}
 		function Update(user) {
-			return $http.put('/api/users' + user._id, user).then(handleSuccess, handleError);
+			return $http.put('/api/users/' + user._id, user).then(handleSuccess, handleError);
 		}
 		function Delete(_id) {
-			return $http.delete('/api/users' + _id).then(handleSuccess, handleError);
+			return $http.delete('/api/users/' + _id).then(handleSuccess, handleError);
 		}
 		//private functions
 
