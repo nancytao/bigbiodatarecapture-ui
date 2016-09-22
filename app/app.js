@@ -23,7 +23,7 @@
 				templateUrl: 'account/index.html',
 				controller: 'Account.IndexController',
 				controllerAs: 'vm',
-				data: { activeTabe: 'account' }
+				data: { activeTab: 'account' }
 			});
 	}
 	function run($http, $rootScope, $window) {
@@ -38,7 +38,7 @@
 	$(function () {
 		// get JWT token from server
 		$.get('/app/token', function(token) {
-			window.jtwToken = token;
+			window.jwtToken = token;
 			angular.bootstrap(document, ['app']);
 		});
 	});

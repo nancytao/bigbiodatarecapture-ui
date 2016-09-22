@@ -42,7 +42,7 @@
 			$rootScope.flash = {
 				message: message,
 				type: 'danger',
-				keepAfterLocationChange = keepAfterLocationChange
+				keepAfterLocationChange: keepAfterLocationChange
 			};
 		}
 	}

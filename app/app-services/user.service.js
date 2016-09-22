@@ -24,7 +24,7 @@
 		function GetAll() {
 			return $http.get('/api/users').then(handleSuccess, handleError);
 		}
-		function getById(_id) {
+		function GetById(_id) {
 			return $http.get('/api/users/' + _id).then(handleSuccess, handleError);
 		}
 		function GetByUsername(username) {
@@ -44,7 +44,7 @@
 		function handleSuccess(res) {
 			return res.data;
 		}
-		function handleFailure(res) {
+		function handleError(res) {
 			return $q.reject(res.data);
 		}
 	}
