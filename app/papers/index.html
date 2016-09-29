@@ -1,0 +1,12 @@
+<h1>Papers</h1>
+<div class="form-container">
+	<form method="get">
+		<div class="form-group">
+			<label for="articleId">Article ID</label>
+			<input type="text" id="articleId" class="form-control" ng-model="vm.articleId" required />
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" ng-click="vm.getPaper()">Get Paper</button>
+		</div>
+	</form>
+</div>
