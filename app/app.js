@@ -24,6 +24,13 @@
 				controller: 'Account.IndexController',
 				controllerAs: 'vm',
 				data: { activeTab: 'account' }
+			})
+			.state('papers', {
+				url: '/papers',
+				templateUrl: 'papers/index.html',
+				controller: 'Papers.IndexController',
+				controllerAs: 'vm',
+				data: {activeTab: 'papers'}
 			});
 	}
 	function run($http, $rootScope, $window) {
