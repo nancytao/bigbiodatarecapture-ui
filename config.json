@@ -1,5 +1,5 @@
 {
-    "connectionString": "mongodb://localhost:27017/db",
+    "connectionString": "mongodb://localhost:27017/bigbio",
     "apiUrl":  "http://localhost:8080/api",
     "secret": "NTSTBL"
 }
