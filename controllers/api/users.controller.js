@@ -37,6 +37,7 @@ function registerUser(req, res) {
 			res.status(400).send(err);
 		});
 }
+
 function getCurrentUser(req, res) {
 	userService.getById(req.user.sub)
 		.then(function(user) {

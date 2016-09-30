@@ -10,8 +10,7 @@ router.get('/:_id', getPaper);
 module.exports = router;
 
 function getPaper(req, res) {
-	console.log("Test1");
-	biodataService.getById(req.body.articleId)
+	biodataService.getById(req.params._id)
 		.then(function(articleId) {
 			if (articleId) {
 				res.send(articleId);
@@ -20,6 +19,6 @@ function getPaper(req, res) {
 			}
 		})
 		.catch(function (err) {
-			res.statis(400).send(err);
+			res.status(400).send(err);
 		});
 }
