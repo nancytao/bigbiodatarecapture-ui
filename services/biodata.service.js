@@ -14,7 +14,6 @@ service.getById = getById;
 module.exports = service;
 
 function getById(_id) {
-	console.log("Test2");
 	var deferred = Q.defer();
 
 	db.biodata.findById(_id, function (err, biodata) {
@@ -22,6 +21,7 @@ function getById(_id) {
 
 		if (biodata) {
 			//return biodata
+			console.log(biodata);
 			deferred.resolve(biodata);
 		} else {
 			//biodata not found
