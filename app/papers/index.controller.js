@@ -11,8 +11,9 @@
 		vm.getPaper = getPaper;
 
 		function getPaper() {
-			BiodataService.GetById(vm.articleId).then(function(biodata) {
-				console.log(biodata);
+			BiodataService.GetById(vm.articleId._id).then(function(biodata) {
+				vm.articleId = biodata;
+				console.log(vm.articleId);
 			})
 			.catch(function(error) {
 				FlashService.Error(error);

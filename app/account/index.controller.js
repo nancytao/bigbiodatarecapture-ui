@@ -29,6 +29,7 @@
                     FlashService.Error(error);
                 });
         }
+
         function deleteUser() {
             UserService.Delete(vm.user._id)
                 .then(function() {
