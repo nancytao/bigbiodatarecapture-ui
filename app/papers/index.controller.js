@@ -13,9 +13,10 @@
 		function getPaper() {
 			BiodataService.GetById(vm.articleId._id).then(function(biodata) {
 				vm.articleId = biodata;
-				console.log(vm.articleId);
 			})
 			.catch(function(error) {
+				var searchedid = vm.articleId._id;
+				vm.articleId = {'_id': searchedid};
 				FlashService.Error(error);
 			});
 		}
