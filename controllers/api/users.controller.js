@@ -48,7 +48,7 @@ function getCurrentUser(req, res) {
 			}
 		})
 		.catch(function (err) {
-			res.statis(400).send(err);
+			res.status(400).send(err);
 		});
 }
 

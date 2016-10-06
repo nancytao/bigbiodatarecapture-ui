@@ -9,10 +9,11 @@
 		var vm = this;
 		vm.articleId = null;
 		vm.getPaper = getPaper;
+		vm.paper = null;
 
 		function getPaper() {
 			BiodataService.GetById(vm.articleId).then(function(biodata) {
-				console.log(biodata);
+				paper = biodata;
 			})
 			.catch(function(error) {
 				FlashService.Error(error);
