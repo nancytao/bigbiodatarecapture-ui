@@ -12,10 +12,13 @@
 		vm.paper = null;
 
 		function getPaper() {
-			BiodataService.GetById(vm.articleId).then(function(biodata) {
-				paper = biodata;
+			BiodataService.GetById(vm.articleId._id).then(function(biodata) {
+				vm.articleId = biodata;
+				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
+				var searchedid = vm.articleId._id;
+				vm.articleId = {'_id': searchedid};
 				FlashService.Error(error);
 			});
 		}
