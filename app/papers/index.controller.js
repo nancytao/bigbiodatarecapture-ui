@@ -16,8 +16,7 @@
 				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
-				var searchedid = vm.articleId._id;
-				vm.articleId = {'_id': searchedid};
+				vm.articleId = {'_id': vm.articleId._id};
 				FlashService.Error(error);
 			});
 		}
