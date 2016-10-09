@@ -3,7 +3,7 @@
 	<form method="get">
 		<div class="form-group">
 			<label for="articleId">Article ID</label>
-			<input type="text" id="articleId" class="form-control" ng-model="vm.articleId._id" required />
+			<input type="text" id="articleId" class="form-control" ng-model="vm.articleId._id" />
             <label for="title">Title</label>
             <input type="text" id="title" class="form-control" ng-model="vm.articleId.title" />
             <label for="authors">Author(s)</label>
@@ -11,6 +11,8 @@
 		</div>
 		<div class="form-group">
 			<button class="btn btn-primary" ng-click="vm.getPaper()">Get Paper</button>
+            <button class="btn btn-secondary" ng-click="vm.getPaperByTitle()">Search By Title</button>
+            <button class="btn btn-danger" ng-click="vm.clear()">Clear</button>
 		</div>
 	</form>
 </div>

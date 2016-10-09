@@ -10,6 +10,7 @@ db.bind('biodata');
 var service = {};
 
 service.getById = getById;
+service.getByTitle = getByTitle;
 
 module.exports = service;
 
@@ -28,5 +29,27 @@ function getById(_id) {
 			deferred.resolve();
 		}
 	});
+	return deferred.promise;
+}
+
+function getByTitle(title) {
+	var deferred = Q.defer();
+	db.biodata.find({title: title}, function(err, biodata) {
+	    biodata.each(function(err, biodatum) {
+	        deferred.resolve(biodatum);
+	    });
+	});
+	// db.biodata.find({title: '/' + title + '/'}, function (err, biodata) {
+	// 	if (err) deferred.reject(err);
+
+	// 	if (biodata) {
+	// 		//return biodata
+	// 		//console.log(biodata);
+	// 		deferred.resolve(biodata);
+	// 	} else {
+	// 		//biodata not found
+	// 		deferred.resolve();
+	// 	}
+	// });
 	return deferred.promise;
 }

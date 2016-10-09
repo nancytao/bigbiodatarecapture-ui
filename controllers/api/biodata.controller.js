@@ -5,7 +5,7 @@ var biodataService = require('services/biodata.service');
 
 //routes
 router.get('/:_id', getPaper);
-
+router.get('/title/:title', getPaperByTitle);
 
 module.exports = router;
 
@@ -14,6 +14,20 @@ function getPaper(req, res) {
 		.then(function(articleId) {
 			if (articleId) {
 				res.send(articleId);
+			} else {
+				res.sendStatus(404);
+			}
+		})
+		.catch(function (err) {
+			res.status(400).send(err);
+		});
+}
+
+function getPaperByTitle(req, res) {
+	biodataService.getByTitle(req.params.title)
+		.then(function(title) {
+			if (title) {
+				res.send(title);
 			} else {
 				res.sendStatus(404);
 			}
