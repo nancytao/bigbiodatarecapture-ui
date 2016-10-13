@@ -36,3 +36,13 @@ function getPaperByTitle(req, res) {
 			res.status(400).send(err);
 		});
 }
+
+function updateArticle(req, res) {
+	biodataService.update(req.params._id, req.body)
+		.then(function() {
+			res.sendStatus(200);
+		})
+		.catch(function(err) {
+			res.status(400).send(err);
+		});
+}

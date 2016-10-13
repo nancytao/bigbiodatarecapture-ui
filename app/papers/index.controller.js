@@ -7,36 +7,46 @@
 
 	function Controller($window, BiodataService, FlashService) {
 		var vm = this;
-		vm.articleId = null;
+		vm.article = null;
 		vm.getPaper = getPaper;
 		vm.getPaperByTitle = getPaperByTitle;
 		vm.clear = clear;
 		vm.paper = null;
 
 		function getPaper() {
-			BiodataService.GetById(vm.articleId._id).then(function(biodata) {
-				vm.articleId = biodata;
+			BiodataService.GetById(vm.article._id).then(function(biodata) {
+				vm.article = biodata;
 				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
-				vm.articleId = {'_id': vm.articleId._id};
+				vm.article = {'_id': vm.article._id};
 				FlashService.Error(error);
 			});
 		}
 
 		function getPaperByTitle() {
-			BiodataService.GetByTitle(vm.articleId.title).then(function(biodata) {
-				vm.articleId = biodata;
+			BiodataService.GetByTitle(vm.article.title).then(function(biodata) {
+				vm.article = biodata;
 				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
-				vm.articleId = {'title': vm.articleId.title};
+				vm.article = {'title': vm.article.title};
+				FlashService.Error(error);
+			});
+		}
+
+		function savePaper() {
+			BiodataService.Update(vm.article)
+			.then(function() {
+				FlashService.Success("Article updated");
+			})
+			.catch(function(error) {
 				FlashService.Error(error);
 			});
 		}
 
 		function clear() {
-			vm.articleId = null;
+			vm.article = null;
 			FlashService.Success("Cleared Data");
 		}
 	}

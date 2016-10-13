@@ -21,6 +21,10 @@
 			return $http.get('/api/biodata/title/' + title).then(handleSuccess, handleError);
 		}
 
+		function Update(article) {
+			return $http.put('/api/biodata/' + article._id, article).then(handleSuccess, handleError);
+		}
+
 		function handleSuccess(res) {
 			return res.data;
 		}
