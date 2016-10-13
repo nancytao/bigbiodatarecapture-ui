@@ -29,5 +29,5 @@ app.get('/', function (req, res) {
 
 // start server
 var server = app.listen(8080, function () {
-    console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
+    console.log('Server listening at http://localhost:' + server.address().port);
 });
