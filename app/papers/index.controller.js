@@ -7,7 +7,7 @@
 
 	function Controller($window, BiodataService, FlashService) {
 		var vm = this;
-		vm.article = null;
+		vm.paper = null;
 		vm.getPaper = getPaper;
 		vm.getPaperByTitle = getPaperByTitle;
 		vm.savePaper = savePaper;
@@ -15,31 +15,31 @@
 		vm.paper = null;
 
 		function getPaper() {
-			BiodataService.GetById(vm.article._id).then(function(biodata) {
-				vm.article = biodata;
+			BiodataService.GetById(vm.paper._id).then(function(biodata) {
+				vm.paper = biodata;
 				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
-				vm.article = {'_id': vm.article._id};
+				vm.paper = {'_id': vm.paper._id};
 				FlashService.Error(error);
 			});
 		}
 
 		function getPaperByTitle() {
-			BiodataService.GetByTitle(vm.article.title).then(function(biodata) {
-				vm.article = biodata;
+			BiodataService.GetByTitle(vm.paper.title).then(function(biodata) {
+				vm.paper = biodata;
 				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
-				vm.article = {'title': vm.article.title};
+				vm.paper = {'title': vm.paper.title};
 				FlashService.Error(error);
 			});
 		}
 
 		function savePaper() {
-			BiodataService.Update(vm.article)
+			BiodataService.Update(vm.paper)
 			.then(function() {
-				FlashService.Success("Article updated");
+				FlashService.Success("Paper info updated");
 			})
 			.catch(function(error) {
 				FlashService.Error(error);
@@ -47,7 +47,7 @@
 		}
 
 		function clear() {
-			vm.article = null;
+			vm.paper = null;
 			FlashService.Success("Cleared Search/Data");
 		}
 	}

@@ -58,24 +58,12 @@ function getByTitle(title) {
 function update(_id, articleParam) {
     var deferred = Q.defer();
 
-    // validation
     db.biodata.findById(_id, function (err, user) {
         if (err) deferred.reject(err);
 
         if (_id !== articleParam._id) {
             // PMID changed, so make sure not dumb
-            db.biodata.findOne(
-                { _id: articleParam._id },
-                function (err, article) {
-                    if (err) deferred.reject(err);
-
-                    if (article) {
-                        // ID already exists
-                        deferred.reject('Cannot change ID to "' + req.body.username + '"; it is already taken.')
-                    } else {
-                        updatePaper();
-                    }
-                });
+            deferred.reject("Cannot change paper ID");
         } else {
             updatePaper();
         }

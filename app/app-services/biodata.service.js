@@ -22,13 +22,14 @@
 			return $http.get('/api/biodata/title/' + title).then(handleSuccess, handleError);
 		}
 
-		function Update(article) {
-			return $http.put('/api/biodata/' + article._id, article).then(handleSuccess, handleError);
+		function Update(paper) {
+			return $http.put('/api/biodata/' + paper._id, paper).then(handleSuccess, handleError);
 		}
 
 		function handleSuccess(res) {
 			return res.data;
 		}
+
 		function handleError(res) {
 			return $q.reject(res.data);
 		}
