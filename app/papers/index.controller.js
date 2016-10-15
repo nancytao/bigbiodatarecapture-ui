@@ -10,6 +10,7 @@
 		vm.article = null;
 		vm.getPaper = getPaper;
 		vm.getPaperByTitle = getPaperByTitle;
+		vm.savePaper = savePaper;
 		vm.clear = clear;
 		vm.paper = null;
 
@@ -47,7 +48,7 @@
 
 		function clear() {
 			vm.article = null;
-			FlashService.Success("Cleared Data");
+			FlashService.Success("Cleared Search/Data");
 		}
 	}
 })();

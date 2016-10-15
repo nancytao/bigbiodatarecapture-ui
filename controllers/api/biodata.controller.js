@@ -6,6 +6,7 @@ var biodataService = require('services/biodata.service');
 //routes
 router.get('/:_id', getPaper);
 router.get('/title/:title', getPaperByTitle);
+router.put('/:_id', updateArticle);
 
 module.exports = router;
 
@@ -38,6 +39,7 @@ function getPaperByTitle(req, res) {
 }
 
 function updateArticle(req, res) {
+	console.log(req.params._id);
 	biodataService.update(req.params._id, req.body)
 		.then(function() {
 			res.sendStatus(200);

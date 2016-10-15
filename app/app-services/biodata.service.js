@@ -10,6 +10,7 @@
 
 		service.GetById = GetById;
 		service.GetByTitle = GetByTitle;
+		service.Update = Update;
 
 		return service;
 
