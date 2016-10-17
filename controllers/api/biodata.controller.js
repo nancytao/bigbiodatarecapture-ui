@@ -11,6 +11,7 @@ router.put('/:_id', updatePaper);
 module.exports = router;
 
 function getPaper(req, res) {
+	console.log(req);
 	biodataService.getById(req.params._id)
 		.then(function(paperID) {
 			if (paperID) {
@@ -39,7 +40,7 @@ function getPaperByTitle(req, res) {
 }
 
 function updatePaper(req, res) {
-	biodataService.update(req.params._id, req.body)
+	biodataService.update(req.params._id, req.body, req.user.sub)
 		.then(function() {
 			res.sendStatus(200);
 		})
