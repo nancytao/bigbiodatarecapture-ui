@@ -26,7 +26,6 @@ function getById(_id) {
 
 		if (biodata) {
 			//return biodata
-			console.log(biodata);
 			deferred.resolve(biodata);
 		} else {
 			//biodata not found
@@ -38,23 +37,13 @@ function getById(_id) {
 
 function getByTitle(title) {
 	var deferred = Q.defer();
-	db.biodata.find({title: title}, function(err, biodata) {
-	    biodata.each(function(err, biodatum) {
-	        deferred.resolve(biodatum);
-	    });
-	});
-	// db.biodata.find({title: '/' + title + '/'}, function (err, biodata) {
-	// 	if (err) deferred.reject(err);
 
-	// 	if (biodata) {
-	// 		//return biodata
-	// 		//console.log(biodata);
-	// 		deferred.resolve(biodata);
-	// 	} else {
-	// 		//biodata not found
-	// 		deferred.resolve();
-	// 	}
-	// });
+	db.biodata.find({title: {$regex: title, $options: 'i'}}, function (err, biodata) {
+		biodata.each(function(err, biodatum) {
+            deferred.resolve(biodatum);
+        });
+	});
+
 	return deferred.promise;
 }
 

@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<title>Big Bio-Data Recapture</title>
 
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="//bootswatch.com/yeti/bootstrap.min.css" rel="stylesheet" />
     <link href="app-content/app.css" rel="stylesheet" />
 </head>
 
@@ -15,9 +15,7 @@
 			<li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
 			<li ng-class="{active: activeTab === 'papers'}"><a ui-sref="papers">Papers</a></li>
 			<li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
-			<!-- <li style="float:right"><a href="/login" target="_self"><button class="btn-danger">Logout</button></a></li> -->
-            <!-- <li style="float:right"> -->
-            <a href="/login" target="_self" class="btn btn-danger" style="float:right">Logout</a><!-- </li> -->
+            <a href="/login" target="_self" class="btn btn-danger" style="float:right">Logout</a>
 		</ul>
 		<div class="flash-message" ng-if="flash">
 			<div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
