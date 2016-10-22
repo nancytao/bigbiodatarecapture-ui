@@ -15,6 +15,7 @@ var service = {};
 service.getById = getById;
 service.getByTitle = getByTitle;
 service.update = update;
+service.uploadPDF = uploadPDF;
 
 module.exports = service;
 
@@ -45,6 +46,25 @@ function getByTitle(title) {
 	});
 
 	return deferred.promise;
+}
+
+function uploadPDF(_id, pdf) {
+    var deferred = Q.defer();
+
+    var set = {
+            pdf: pdf
+        };
+
+        // update the actual paper
+    db.biodata.update(
+        { _id: mongo.helper.toObjectID(_id) },
+        { $set: set },
+        function (err, doc) {
+            if (err) deferred.reject(err);
+
+            deferred.resolve();
+        });
+    return deferred.promise;
 }
 
 function update(_id, paperParam, user) {

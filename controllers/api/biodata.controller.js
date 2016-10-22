@@ -7,6 +7,7 @@ var biodataService = require('services/biodata.service');
 router.get('/:_id', getPaper);
 router.get('/title/:title', getPaperByTitle);
 router.put('/:_id', updatePaper);
+router.put('/pdf/:_id', uploadPDF);
 
 module.exports = router;
 
@@ -40,6 +41,16 @@ function getPaperByTitle(req, res) {
 
 function updatePaper(req, res) {
 	biodataService.update(req.params._id, req.body, req.user.sub)
+		.then(function() {
+			res.sendStatus(200);
+		})
+		.catch(function(err) {
+			res.status(400).send(err);
+		});
+}
+
+function uploadPDF(req, res) {
+	biodataService.uploadPDF(req.params._id, req.body)
 		.then(function() {
 			res.sendStatus(200);
 		})

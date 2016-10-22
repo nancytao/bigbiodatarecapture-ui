@@ -6,6 +6,7 @@
 		.controller('Papers.IndexController', Controller);
 
 	function Controller($window, BiodataService, FlashService) {
+		var pdf = null;
 		var vm = this;
 		vm.paper = null;
 		vm.getPaper = getPaper;
@@ -44,6 +45,23 @@
 			.catch(function(error) {
 				FlashService.Error(error);
 			});
+		}
+
+		function uploadPDF() {
+			BiodataService.UploadPDF(vm.pdf, vm.paper._id)
+			.then(function() {
+				FlashService.Success("PDF Uploaded");
+			})
+			.catch(function(error) {
+				FlashService.Error(error);
+			});
+		}
+
+		function add() {
+			var f = document.getElementById('file').files[0], r = new FileReader();
+			r.onloadend = function(e){
+				pdf = e.target.result;
+			}
 		}
 
 		function clear() {

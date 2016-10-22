@@ -26,6 +26,10 @@
 			return $http.put('/api/biodata/' + paper._id, paper).then(handleSuccess, handleError);
 		}
 
+		function UploadPDF(pdf, _id) {
+			return $http.put('/api/biodata/pdf/' + _id).then(handleSuccess, handleError);
+		}
+
 		function handleSuccess(res) {
 			return res.data;
 		}
