@@ -48,6 +48,10 @@
 		}
 
 		function uploadPDF() {
+			var f = document.getElementById('file').files[0], r = new FileReader();
+			r.onloadend = function(e){
+				pdf = e.target.result;
+			}
 			BiodataService.UploadPDF(vm.pdf, vm.paper._id)
 			.then(function() {
 				FlashService.Success("PDF Uploaded");
@@ -55,13 +59,6 @@
 			.catch(function(error) {
 				FlashService.Error(error);
 			});
-		}
-
-		function add() {
-			var f = document.getElementById('file').files[0], r = new FileReader();
-			r.onloadend = function(e){
-				pdf = e.target.result;
-			}
 		}
 
 		function clear() {
