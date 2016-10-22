@@ -31,6 +31,13 @@
 				controller: 'Papers.IndexController',
 				controllerAs: 'vm',
 				data: {activeTab: 'papers'}
+			})
+			.state('edit', {
+				url: '/papers/edit',
+				templateUrl: 'papers/edit.html',
+				controller: 'Papers.IndexController',
+				controllerAs: 'vm',
+				data: {activeTab: 'papers'}
 			});
 	}
 	function run($http, $rootScope, $window) {
