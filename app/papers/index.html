@@ -3,18 +3,53 @@
 	<form method="get">
 		<div class="form-group">
 			<label for="paperID">Paper ID</label>
-			<input type="text" id="paperID" class="form-control" ng-model="vm.paper._id" />
+			<input type="text" id="paperID" class="form-control" ng-model="vm.search._id" />
             <label for="title">Title</label>
-            <input type="text" id="title" class="form-control" ng-model="vm.paper.title" />
+            <input type="text" id="title" class="form-control" ng-model="vm.search.title" />
             <label for="authors">Author(s)</label>
-            <input type="text" id="authors" class="form-control" ng-model="vm.paper.authors" />
+            <input type="text" id="authors" class="form-control" ng-model="vm.search.authors" />
 		</div>
 		<div class="form-group">
 			<button class="btn btn-primary" ng-click="vm.getPaper()">Get Paper</button>
             <button class="btn btn-secondary" ng-click="vm.getPaperByTitle()">Search By Title</button>
             <button class="btn btn-secondary" ng-click="vm.savePaper()">Save Paper</button>
             <button class="btn btn-danger" ng-click="vm.clear()">Clear</button>
-            <button class="btn btn-secondary"><a ui-sref="edit">Edit</a></button>
 		</div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#" ng-click="vm.sortType = 'id'">ID
+                            <span ng-show="vm.sortType == 'id'" class="fa fa-caret-down"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortType = 'title'">Title
+                            <span ng-show="vm.sortType == 'title'" class="fa fa-caret-down"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortType = 'authors'">Author(s)
+                            <span ng-show="vm.sortType == 'authors'" class="fa fa-caret-down"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortType = 'journal'">Journal
+                            <span ng-show="vm.sortType == 'journal'" class="fa fa-caret-down"></span>
+                        </a>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="paper in vm.paperList | orderBy:vm.sortType">
+                    <td>{{paper._id}}</td>
+                    <td>{{paper.title}}</td>
+                    <td>{{paper.authors}}</td>
+                    <td>{{paper.journal}}</td>
+                    <td><button class="btn"><a ui-sref="edit({_id: paper._id})" ng-click="vm.setPaper(paper._id)">Edit</a></button></td>
+                </tr>
+            </tbody>
+        </table>
 	</form>
 </div>

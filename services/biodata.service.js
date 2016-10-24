@@ -39,11 +39,10 @@ function getById(_id) {
 function getByTitle(title) {
 	var deferred = Q.defer();
 
-	db.biodata.find({title: {$regex: title, $options: 'i'}}, function (err, biodata) {
-		biodata.each(function(err, biodatum) {
-            deferred.resolve(biodatum);
-        });
-	});
+    db.biodata.find({title: {$regex: title, $options: 'i'}}).toArray(function(err, biodata) {
+        if (err) throw err;
+        deferred.resolve(biodata);
+    });
 
 	return deferred.promise;
 }

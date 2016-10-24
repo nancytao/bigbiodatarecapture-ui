@@ -6,35 +6,73 @@
 		.controller('Papers.IndexController', Controller);
 
 	function Controller($window, BiodataService, FlashService) {
-		var pdf = null;
 		var vm = this;
-		vm.paper = null;
+
+		// methods
 		vm.getPaper = getPaper;
 		vm.getPaperByTitle = getPaperByTitle;
 		vm.savePaper = savePaper;
+		vm.uploadPDF = uploadPDF;
+		vm.setPaper = setPaper;
+		vm.loadPaperForEdit = loadPaperForEdit;
 		vm.clear = clear;
-		vm.paper = null;
+
+		// variables
+		vm.search = null;
+		vm.paper = loadPaperForEdit();
+		vm.paperList = [];
+		vm.sortType = 'id';
+		vm.pdf = null;
 
 		function getPaper() {
-			BiodataService.GetById(vm.paper._id).then(function(biodata) {
-				vm.paper = biodata;
+			BiodataService.GetById(vm.search._id).then(function(biodata) {
+				vm.paperList = [biodata];
 				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
-				vm.paper = {'_id': vm.paper._id};
+				vm.paperList = [{'_id': vm.search._id}];
 				FlashService.Error(error);
 			});
 		}
 
 		function getPaperByTitle() {
-			BiodataService.GetByTitle(vm.paper.title).then(function(biodata) {
-				vm.paper = biodata;
+			BiodataService.GetByTitle(vm.search.title)
+			.then(function(biodata) {
+				vm.paperList = biodata.sort(function (a, b) {
+				    if (a._id > b._id) {
+				    	return 1;
+				  	} else if (a._id < b._id) {
+				    	return -1;
+				  	} else {
+				  		return 0;
+				  	}
+				}); // sorting is required to make vm.sortType work properly with _id
 				FlashService.Success("Match Found!");
 			})
 			.catch(function(error) {
-				vm.paper = {'title': vm.paper.title};
+				vm.search = {'title': vm.search.title};
 				FlashService.Error(error);
 			});
+		}
+
+		function setPaper(_id) {
+			console.log("set");
+			BiodataService.SetPaper(_id)
+			.then(function(paper) {
+				console.log(paper);
+				FlashService.Success("did a thing set");
+			})
+			.catch(function(error) {
+				FlashService.Error(error);
+			});
+		}
+
+		function loadPaperForEdit() {
+			if (BiodataService.paper != null) {
+				vm.paper = BiodataService.paper.$$state.value;
+			} else {
+				vm.paper = null;
+			}
 		}
 
 		function savePaper() {
@@ -52,9 +90,10 @@
 			r.onloadend = function(e){
 				pdf = e.target.result;
 			}
+
 			BiodataService.UploadPDF(vm.pdf, vm.paper._id)
 			.then(function() {
-				FlashService.Success("PDF Uploaded");
+				FlashService.Success("PDF uploaded");
 			})
 			.catch(function(error) {
 				FlashService.Error(error);
@@ -62,7 +101,8 @@
 		}
 
 		function clear() {
-			vm.paper = null;
+			vm.search = null;
+			vm.paperList = [];
 			FlashService.Success("Cleared Search/Data");
 		}
 	}

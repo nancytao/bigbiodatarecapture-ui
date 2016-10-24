@@ -33,13 +33,14 @@
 				data: {activeTab: 'papers'}
 			})
 			.state('edit', {
-				url: '/papers/edit',
+				url: '/papers/:_id',
 				templateUrl: 'papers/edit.html',
 				controller: 'Papers.IndexController',
 				controllerAs: 'vm',
 				data: {activeTab: 'papers'}
 			});
 	}
+
 	function run($http, $rootScope, $window) {
 		// add JWT token as default auth header
 		$http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
@@ -49,6 +50,7 @@
 			$rootScope.activeTab = toState.data.activeTab;
 		});
 	}
+
 	$(function () {
 		// get JWT token from server
 		$.get('/app/token', function(token) {

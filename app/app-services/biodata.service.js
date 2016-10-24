@@ -11,6 +11,10 @@
 		service.GetById = GetById;
 		service.GetByTitle = GetByTitle;
 		service.Update = Update;
+		service.UploadPDF = UploadPDF;
+		service.paper = null;
+		service.SetPaper = SetPaper;
+		service.GetPaper = GetPaper;
 
 		return service;
 
@@ -28,6 +32,15 @@
 
 		function UploadPDF(pdf, _id) {
 			return $http.put('/api/biodata/pdf/' + _id).then(handleSuccess, handleError);
+		}
+
+		function SetPaper(_id) {
+			service.paper = $http.get('/api/biodata/' + _id).then(handleSuccess, handleError);
+			return service.paper;
+		}
+
+		function GetPaper() {
+			return service.paper;
 		}
 
 		function handleSuccess(res) {
