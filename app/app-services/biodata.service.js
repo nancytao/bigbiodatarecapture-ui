@@ -31,7 +31,7 @@
 		}
 
 		function UploadPDF(pdf, _id) {
-			return $http.put('/api/biodata/pdf/' + _id).then(handleSuccess, handleError);
+			return $http.put('/api/biodata/pdf/' + _id, pdf).then(handleSuccess, handleError);
 		}
 
 		function SetPaper(_id) {

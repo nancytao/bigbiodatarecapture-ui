@@ -50,6 +50,7 @@ function updatePaper(req, res) {
 }
 
 function uploadPDF(req, res) {
+	console.log(req);
 	biodataService.uploadPDF(req.params._id, req.body)
 		.then(function() {
 			res.sendStatus(200);

@@ -56,11 +56,9 @@
 		}
 
 		function setPaper(_id) {
-			console.log("set");
 			BiodataService.SetPaper(_id)
 			.then(function(paper) {
-				console.log(paper);
-				FlashService.Success("did a thing set");
+				// nothing
 			})
 			.catch(function(error) {
 				FlashService.Error(error);
@@ -70,8 +68,10 @@
 		function loadPaperForEdit() {
 			if (BiodataService.paper != null) {
 				vm.paper = BiodataService.paper.$$state.value;
+				return BiodataService.paper.$$state.value;
 			} else {
 				vm.paper = null;
+				return null;
 			}
 		}
 
@@ -86,9 +86,10 @@
 		}
 
 		function uploadPDF() {
-			var f = document.getElementById('file').files[0], r = new FileReader();
-			r.onloadend = function(e){
-				pdf = e.target.result;
+			var f = document.getElementById('file').files[0]
+			var r = new FileReader();
+			r.onloadend = function(e) {
+				vm.pdf = e.target.result;
 			}
 
 			BiodataService.UploadPDF(vm.pdf, vm.paper._id)
