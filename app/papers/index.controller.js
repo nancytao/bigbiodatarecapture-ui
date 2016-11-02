@@ -66,13 +66,14 @@
 		}
 
 		function loadPaperForEdit() {
-			if (BiodataService.paper != null) {
-				vm.paper = BiodataService.paper.$$state.value;
-				return BiodataService.paper.$$state.value;
-			} else {
-				vm.paper = null;
-				return null;
-			}
+			BiodataService.GetPaper()
+			.then(function(paper) {
+				vm.paper = paper;
+				return vm.paper;
+			})
+			.catch(function(error) {
+				FlashService.Error(error);
+			})
 		}
 
 		function savePaper() {
