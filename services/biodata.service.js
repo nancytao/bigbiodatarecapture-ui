@@ -104,27 +104,23 @@ function uploadPDF(_id, paperParam, user) {
             });
 
         // for every field changed, add an entry in the change log
-        for (i = 0; i < changes.length; i++) {
-            item = changes[i];
-
-            var change = {
-                'user_id': user,
-                'username': username,
-                'date': new Date(),
-                'paper_ID': _id,
-                'field_name': item['field'],
-                'old': item['old'],
-                'new': item['new']
-            }
-
-            db.changelog.insert(
-                change,
-                function(err, doc) {
-                    if (err) deferred.reject(err);
-
-                    deferred.resolve();
-                });
+        var change = {
+            'user_id': user,
+            'username': username,
+            'date': new Date(),
+            'paper_ID': _id,
+            'field_name': 'pdf',
+            'old': item['old'],
+            'new': item['new']
         }
+
+        db.changelog.insert(
+            change,
+            function(err, doc) {
+                if (err) deferred.reject(err);
+
+                deferred.resolve();
+            });
     }
 
     return deferred.promise;

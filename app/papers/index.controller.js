@@ -84,7 +84,6 @@
 		}
 
 		function uploadPDF() {
-			console.log(vm.paper.pdf)
 			BiodataService.UploadPDF(vm.paper)
 			.then(function() {
 				FlashService.Success("PDF uploaded");
