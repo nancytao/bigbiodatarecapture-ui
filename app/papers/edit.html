@@ -1,3 +1,5 @@
+  <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:;default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
+
 <h1>Edit</h1>
 <div class="form-container">
 	<form method="get">
@@ -12,7 +14,7 @@
 		<div class="form-group">
 			<input type="file" id="file" name="file" />
             <br>
-			<button class="btn" ng-click="vm.uploadPDF()">Upload File</button>
+			<button class="btn" ng-click="vm.convert64()">Upload File</button>
             <button class="btn btn-secondary" ng-click="vm.savePaper()">Save Paper</button>
             <button class="btn btn-danger"><a ui-sref="papers">Back</a></button></td>
 		</div>
