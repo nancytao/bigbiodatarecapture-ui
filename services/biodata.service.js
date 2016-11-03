@@ -54,22 +54,79 @@ function getByTitle(title) {
 	return deferred.promise;
 }
 
-function uploadPDF(_id, pdf) {
+function uploadPDF(_id, paperParam, user) {
     var deferred = Q.defer();
 
-    var set = {
-            pdf: pdf
+    var changes = [];
+    var username = null;
+
+    db.users.findById(user, function (err, db_user) {
+        if (err) deferred.reject(err);
+
+        if (db_user) {
+            username = db_user['username'];
+        } else {
+            deferred.reject("Must be signed in to modify paper data")
+        }
+    });
+
+    db.biodata.findById(_id, function (err, biodata) {
+        if (err) deferred.reject(err);
+        if (biodata) {
+            if (biodata["pdf"] !== paperParam["pdf"]) {
+                var changedItem = {
+                    'field': "pdf",
+                    'old': biodata["pdf"],
+                    'new': paperParam["pdf"],
+                }
+                changes.push(changedItem);
+            }
+            updatePaper();
+        } else {
+            deferred.reject("Cannot find paper");
+        }
+    });
+
+    function updatePaper() {
+        // fields to update
+        var set = {
+            pdf: paperParam.pdf,
         };
 
         // update the actual paper
-    db.biodata.update(
-        { _id: mongo.helper.toObjectID(_id) },
-        { $set: set },
-        function (err, doc) {
-            if (err) deferred.reject(err);
+        db.biodata.update(
+            { _id: mongo.helper.toObjectID(_id) },
+            { $set: set },
+            function (err, doc) {
+                if (err) deferred.reject(err);
 
-            deferred.resolve();
-        });
+                deferred.resolve();
+            });
+
+        // for every field changed, add an entry in the change log
+        for (i = 0; i < changes.length; i++) {
+            item = changes[i];
+
+            var change = {
+                'user_id': user,
+                'username': username,
+                'date': new Date(),
+                'paper_ID': _id,
+                'field_name': item['field'],
+                'old': item['old'],
+                'new': item['new']
+            }
+
+            db.changelog.insert(
+                change,
+                function(err, doc) {
+                    if (err) deferred.reject(err);
+
+                    deferred.resolve();
+                });
+        }
+    }
+
     return deferred.promise;
 }
 

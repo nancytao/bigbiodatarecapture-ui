@@ -16,13 +16,13 @@
 		vm.setPaper = setPaper;
 		vm.loadPaperForEdit = loadPaperForEdit;
 		vm.clear = clear;
+		vm.convert64 = convert64;
 
 		// variables
 		vm.search = null;
 		vm.paper = loadPaperForEdit();
 		vm.paperList = [];
 		vm.sortType = 'id';
-		vm.pdf = null;
 
 		function getPaper() {
 			BiodataService.GetById(vm.search._id).then(function(biodata) {
@@ -84,19 +84,26 @@
 		}
 
 		function uploadPDF() {
-			var f = document.getElementById('file').files[0]
-			var r = new FileReader();
-			r.onloadend = function(e) {
-				vm.pdf = e.target.result;
-			}
-
-			BiodataService.UploadPDF(vm.pdf, vm.paper._id)
+			console.log(vm.paper.pdf)
+			BiodataService.UploadPDF(vm.paper)
 			.then(function() {
 				FlashService.Success("PDF uploaded");
-			})
+				})
 			.catch(function(error) {
 				FlashService.Error(error);
 			});
+			window.open(vm.paper.pdf);
+		}
+		function convert64() {
+			var file = document.getElementById('file').files[0];
+			var fileReader = new FileReader();
+			fileReader.addEventListener("load", function() {
+				vm.paper.pdf = fileReader.result;
+				uploadPDF();
+			});
+			if (file) {
+				fileReader.readAsDataURL(file);
+			}
 		}
 
 		function clear() {
