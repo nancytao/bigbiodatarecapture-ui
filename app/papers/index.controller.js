@@ -70,10 +70,7 @@
 			.then(function(paper) {
 				vm.paper = paper;
 				return vm.paper;
-			})
-			.catch(function(error) {
-				FlashService.Error(error);
-			})
+			});
 		}
 
 		function savePaper() {
