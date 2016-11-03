@@ -17,6 +17,7 @@
 		vm.loadPaperForEdit = loadPaperForEdit;
 		vm.clear = clear;
 		vm.convert64 = convert64;
+		vm.openPDF = openPDF;
 
 		// variables
 		vm.search = null;
@@ -84,7 +85,6 @@
 		}
 
 		function uploadPDF() {
-			console.log(vm.paper.pdf)
 			BiodataService.UploadPDF(vm.paper)
 			.then(function() {
 				FlashService.Success("PDF uploaded");
@@ -92,7 +92,6 @@
 			.catch(function(error) {
 				FlashService.Error(error);
 			});
-			window.open(vm.paper.pdf);
 		}
 		function convert64() {
 			var file = document.getElementById('file').files[0];
@@ -104,6 +103,9 @@
 			if (file) {
 				fileReader.readAsDataURL(file);
 			}
+		}
+		function openPDF() {
+			window.open(vm.paper.pdf);
 		}
 
 		function clear() {
