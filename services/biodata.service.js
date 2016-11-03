@@ -40,8 +40,15 @@ function getByTitle(title) {
 	var deferred = Q.defer();
 
     db.biodata.find({title: {$regex: title, $options: 'i'}}).toArray(function(err, biodata) {
-        if (err) throw err;
-        deferred.resolve(biodata);
+        if (err) deferred.reject(err);
+
+        if (biodata.length == 0) {  // if no results
+            deferred.resolve();
+        } else {
+            deferred.resolve(biodata);
+        }
+
+
     });
 
 	return deferred.promise;
