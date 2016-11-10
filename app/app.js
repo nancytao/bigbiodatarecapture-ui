@@ -6,9 +6,11 @@
 		.config(config)
 		.run(run);
 
-	function config($stateProvider, $urlRouterProvider) {
+	function config($stateProvider, $urlRouterProvider, $compileProvider) {
 		//default route
 		$urlRouterProvider.otherwise("/");
+
+		$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|blob):|data:application\//);
 
 		$stateProvider
 			.state('home', {
@@ -39,6 +41,8 @@
 				controllerAs: 'vm',
 				data: {activeTab: 'papers'}
 			});
+
+
 	}
 
 	function run($http, $rootScope, $window) {
