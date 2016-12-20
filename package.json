@@ -32,7 +32,10 @@
     "type": "git",
     "url": "git+https://github.com/nancytao/bigbiodatarecapture-ui.git"
   },
-  "author": "Sean Titus",
+  "contributors": [
+    {"name": "Nancy Tao", "email": "nancy.tao42@gmail.com"},
+    {"name": "Sean Titus", "email": "sean.b.titus@gmail.com"}
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nancytao/bigbiodatarecapture-ui/issues"
