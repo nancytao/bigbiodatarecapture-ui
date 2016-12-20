@@ -45,7 +45,7 @@
                     <td>{{paper.title}}</td>
                     <td>{{paper.authors}}</td>
                     <td>{{paper.journal}}</td>
-                    <td><button class="btn"><a ui-sref="edit({_id: paper._id})" ng-click="vm.setPaper(paper._id)">Edit</a></button></td>
+                    <td><a ui-sref="edit({_id: paper._id})" ng-click="vm.setPaper(paper._id)"><button class="btn">Edit</button></a></td>
                 </tr>
             </tbody>
         </table>
