@@ -37,6 +37,7 @@
 		}
 
 		function getPaperByTitle() {
+			vm.paperList = [];
 			BiodataService.GetByTitle(vm.search.title)
 			.then(function(biodata) {
 				vm.paperList = biodata.sort(function (a, b) {
@@ -93,6 +94,7 @@
 				FlashService.Error(error);
 			});
 		}
+
 		function convert64() {
 			var file = document.getElementById('file').files[0];
 			var fileReader = new FileReader();
@@ -104,6 +106,7 @@
 				fileReader.readAsDataURL(file);
 			}
 		}
+
 		function openPDF() {
 			window.open(vm.paper.pdf);
 		}
