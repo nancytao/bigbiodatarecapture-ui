@@ -2,6 +2,9 @@ var config = require('config.json');
 var express = require('express');
 var router = express.Router();
 var biodataService = require('services/biodata.service');
+var exec = require('child_process').exec, child;
+var shtest = exec('sh ./services/scripts/test.sh');
+var pythontest = exec('python ./services/scripts/test.py');
 
 //routes
 router.get('/:_id', getPaper);
@@ -10,6 +13,14 @@ router.put('/:_id', updatePaper);
 router.put('/pdf/:_id', uploadPDF);
 
 module.exports = router;
+
+shtest.stdout.on('data', function(data) {
+	console.log(data);
+});
+pythontest.stdout.on('data', function(data) {
+	console.log(data);
+});
+
 
 function getPaper(req, res) {
 	biodataService.getById(req.params._id)
