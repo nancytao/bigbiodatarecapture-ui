@@ -2,11 +2,13 @@ var config = require('config.json');
 var express = require('express');
 var router = express.Router();
 var biodataService = require('services/biodata.service');
+
+// running .sh or .py scripts
 var exec = require('child_process').exec, child;
 var shtest = exec('sh ./services/scripts/test.sh');
 var pythontest = exec('python ./services/scripts/test.py');
 
-//routes
+// routes
 router.get('/:_id', getPaper);
 router.get('/title/:title', getPaperByTitle);
 router.put('/:_id', updatePaper);
