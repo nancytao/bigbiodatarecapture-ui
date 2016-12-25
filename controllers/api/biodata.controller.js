@@ -53,21 +53,30 @@ function getPaperByTitle(req, res) {
 }
 
 function updatePaper(req, res) {
-	biodataService.update(req.params._id, req.body, req.user.sub)
+	if (req.user.permissions >= 20) {
+		biodataService.update(req.params._id, req.body, req.user.sub)
 		.then(function() {
 			res.sendStatus(200);
 		})
 		.catch(function(err) {
 			res.status(400).send(err);
 		});
+	} else {
+		res.sendStatus(401);
+	}
+
 }
 
 function uploadPDF(req, res) {
-	biodataService.uploadPDF(req.params._id, req.body, req.user.sub)
-		.then(function() {
-			res.sendStatus(200);
-		})
-		.catch(function(err) {
-			res.status(400).send(err);
-		});
+	if (req.user.permissions >= 20) {
+		biodataService.uploadPDF(req.params._id, req.body, req.user.sub)
+			.then(function() {
+				res.sendStatus(200);
+			})
+			.catch(function(err) {
+				res.status(400).send(err);
+			});
+	} else {
+		res.sendStatus(401);
+	}
 }
