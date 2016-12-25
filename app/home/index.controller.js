@@ -7,7 +7,6 @@
 
 	function Controller(UserService) {
 		var vm = this;
-
 		vm.user = null;
 
 		initController();

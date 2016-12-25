@@ -25,7 +25,12 @@ function authenticate(username, password) {
 
 		if (user && bcrypt.compareSync(password, user.hash)) {
 			//auth successful
-			deferred.resolve(jwt.sign({ sub: user._id }, config.secret));
+            var payload = {
+                sub: user._id,
+                permissions: user.permissions
+            };
+
+			deferred.resolve(jwt.sign(payload, config.secret, { noTimestamp: true }));
 		} else {
 			//auth failed
 			deferred.resolve();
@@ -70,11 +75,12 @@ function create(userParam) {
 		});
 
 	function createUser() {
-		//set user object to userParam without cleartext pass
-		var user = _.omit(userParam, 'password');
+		//set user object to userParam without cleartext pass and secretword
+		var user = _.omit(userParam, 'password', 'secretword');
 
 		//hash password, add to object
 		user.hash = bcrypt.hashSync(userParam.password, 10);
+        user.permissions = 20;
 
 		db.users.insert(
 			user,

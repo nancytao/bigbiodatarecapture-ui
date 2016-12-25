@@ -156,7 +156,6 @@ function update(_id, paperParam, user) {
         } else if (biodata) {
             for (var key in paperParam) {
                 if (paperParam.hasOwnProperty(key)) {
-                    // console.log(key + " -> " + paperParam[key]);
                     if (biodata[key] !== paperParam[key]) {
                         var changedItem = {
                             'field': key,
