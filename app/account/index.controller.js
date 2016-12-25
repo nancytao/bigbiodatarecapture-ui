@@ -8,6 +8,7 @@
     function Controller($window, UserService, FlashService) {
         var vm = this;
         vm.user = null;
+        vm.getApikey = getApikey;
         vm.saveUser = saveUser;
         vm.deleteUser = deleteUser;
 
@@ -18,6 +19,16 @@
             UserService.GetCurrent().then(function(user) {
                 vm.user = user;
             });
+        }
+
+        function getApikey() {
+            UserService.GetApikey(vm.user._id)
+                .then(function(key) {
+                    FlashService.Success(key);
+                })
+                .catch(function(error) {
+                    FlashService.Error(error);
+                });
         }
 
         function saveUser() {

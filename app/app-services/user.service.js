@@ -12,6 +12,7 @@
 		service.GetAll = GetAll;
 		service.GetById = GetById;
 		service.GetByUsername = GetByUsername;
+		service.GetApikey = GetApikey;
 		service.Create = Create;
 		service.Update = Update;
 		service.Delete = Delete;
@@ -29,6 +30,9 @@
 		}
 		function GetByUsername(username) {
 			return $http.get('/api/users/' + username).then(handleSuccess, handleError);
+		}
+		function GetApikey(_id) {
+			return $http.get('/api/users/apikey').then(handleSuccess, handleError);
 		}
 		function Create(user) {
 			return $http.post('/api/users', user).then(handleSuccess, handleError);

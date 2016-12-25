@@ -10,6 +10,7 @@ db.bind('users');
 var service = {};
 
 service.authenticate = authenticate;
+service.getApikey = getApikey;
 service.getById = getById;
 service.create = create;
 service.update = update;
@@ -38,6 +39,28 @@ function authenticate(username, password) {
 	});
 
 	return deferred.promise;
+}
+
+function getApikey(_id) {
+    var deferred = Q.defer();
+
+    db.users.findById(_id, function (err, user) {
+        if (err) deferred.reject(err);
+
+        if (user) {
+            // generate and return api key
+            var payload = {
+                sub: user._id,
+                permissions: user.permissions
+            };
+
+            deferred.resolve(jwt.sign(payload, config.secret, { noTimestamp: true }));
+        } else {
+            //user not found
+            deferred.resolve();
+        }
+    });
+    return deferred.promise;
 }
 
 function getById(_id) {
@@ -124,8 +147,7 @@ function update(_id, userParam) {
         var set = {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
-            username: userParam.username,
-            team: userParam.team
+            username: userParam.username
         };
 
         // update password if it was entered

@@ -7,6 +7,7 @@ var userService = require('services/user.service');
 router.post('/authenticate', authenticateUser);
 router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
+router.get('/apikey', getApikey);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
 
@@ -43,6 +44,20 @@ function getCurrentUser(req, res) {
 		.then(function(user) {
 			if (user) {
 				res.send(user);
+			} else {
+				res.sendStatus(404);
+			}
+		})
+		.catch(function (err) {
+			res.status(400).send(err);
+		});
+}
+
+function getApikey(req, res) {
+	userService.getApikey(req.user.sub)
+		.then(function(key) {
+			if (key) {
+				res.send(key);
 			} else {
 				res.sendStatus(404);
 			}
