@@ -62,7 +62,7 @@ function updatePaper(req, res) {
 			res.status(400).send(err);
 		});
 	} else {
-		res.sendStatus(401);
+		res.sendStatus(403); //forbidden
 	}
 
 }
@@ -77,6 +77,6 @@ function uploadPDF(req, res) {
 				res.status(400).send(err);
 			});
 	} else {
-		res.sendStatus(401);
+		res.sendStatus(403); //forbidden
 	}
 }
