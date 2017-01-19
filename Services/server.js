@@ -18,7 +18,7 @@ app.use(session({ secret: config.secret, resave: false, saveUninitialized: true 
 
 // use JWT auth to secure the api
 // express middleware (app.use) is executed sequentially and '/api' will match anything starting with '/api'
-// Any new /api call probably needs to be added to the .unless function
+// Any new /api call probably needs to be added to the .unless function if they do not need to be JWT-secured
 app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
 
 // routes

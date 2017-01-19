@@ -16,12 +16,12 @@ router.put('/pdf/:_id', uploadPDF);
 
 module.exports = router;
 
-shtest.stdout.on('data', function(data) {
-	console.log(data);
-});
-pythontest.stdout.on('data', function(data) {
-	console.log(data);
-});
+// shtest.stdout.on('data', function(data) {
+// 	console.log(data);
+// });
+// pythontest.stdout.on('data', function(data) {
+// 	console.log(data);
+// });
 
 
 function getPaper(req, res) {
