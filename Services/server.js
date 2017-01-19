@@ -7,7 +7,7 @@ var expressJwt = require('express-jwt');
 var config = require('config.json');
 
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/../www/views');
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
     limit: '50mb',
